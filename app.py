@@ -10,8 +10,11 @@ def create_app():
 	app = Flask(__name__)
 	app.config.update(SECRET_KEY="KEY_FAQ")
 	app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///bot_messenger.db"
+	app.json.ensure_ascii = False
 	migrate = Migrate(app,db)
 	db.init_app(app)
-	from routes import register_routes
+	from routes.routes import register_routes
+	from routes.webhook import webhook_bp
 	register_routes(app,db)
+	app.register_blueprint(webhook_bp)
 	return app

@@ -6,6 +6,6 @@ class Faq_User ( db.Model):
     ask: Mapped[str] = mapped_column()
     answer: Mapped[str] = mapped_column()
     def __repr__(self):
-        return f'User: {self.ask}: {self.answer}'
+        return f'Faq_User: {self.ask}: {self.answer}'
     
     

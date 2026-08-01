@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} Index {% endblock %}
+{% block body%}
+<div class="container">
+ <a href="{{url_for('index')}}" class="action-btn edit-btn">ADD FAQ</a>
+ <br>
+<div class="header">
+<h2>FAQ LIST</h2>
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+<th width="80">ID</th>
+<th width="35%">Question</th>
+<th>Answer</th>
+<th width="170">Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+    {% for faq in faqs %}
+    <tr>
+        <td>{{ faq.id }}</td>
+
+        <td>{{ faq.ask }}</td>
+
+        <td>{{ faq.answer }}</td>
+    <td>
+    <a href="{{url_for('edit', id = faq.id)}}" class="action-btn edit-btn">Edit</a>
+    <a href="{{url_for('delete', id = faq.id)}}"  class="action-btn delete-btn">Delete</a>
+    </td>
+    </tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,31 +1,20 @@
 from flask import Blueprint, request
 from config import VERIFY_TOKEN
-from services.chatbot import process_message
+from services.chatbot_service import handle_message
 
 webhook_bp = Blueprint("webhook", __name__)
 
+@webhook_bp.route("/webhook", methods=["GET","POST"])
+def webhook():
+    if request.method == "GET":
+        mode = request.args.get("hub.mode")
+        token = request.args.get("hub.verify_token")
+        challenge = request.args.get("hub.challenge")
+        if mode == "subscribe" and token == VERIFY_TOKEN:
+            return challenge, 200
 
-@webhook_bp.route("/webhook", methods=["GET"])
-def verify():
-
-    mode = request.args.get("hub.mode")
-    token = request.args.get("hub.verify_token")
-    challenge = request.args.get("hub.challenge")
-
-    if mode == "subscribe" and token == VERIFY_TOKEN:
-        return challenge, 200
-
-    return "Verification Failed", 403
-
-
-@webhook_bp.route("/webhook", methods=["POST"])
-def receive():
-
+        return "Verify Failed", 403
     body = request.get_json()
-
-    print("=" * 60)
-    print(body)
-    print("=" * 60)
 
     if body.get("object") != "page":
         return "OK", 200
@@ -36,18 +25,15 @@ def receive():
 
             sender_id = event["sender"]["id"]
 
-            if "message" not in event:
-                continue
+            if "message" in event:
 
-            message = event["message"]
+                message = event["message"]
 
-            if "text" in message:
+                text = message.get("text", "")
 
-                text = message["text"]
-
-                print(f"Sender : {sender_id}")
-                print(f"Message: {text}")
-
-                process_message(sender_id, text)
+                handle_message(
+                    sender_id=sender_id,
+                    text=text
+                )
 
     return "EVENT_RECEIVED", 200

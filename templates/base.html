@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
    <title> {% block title%}title {% endblock %}Default </title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 {% block body%} {%endblock %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

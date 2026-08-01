@@ -1,7 +1,48 @@
 {% extends "base.html" %}
 {% block title %} Index {% endblock %}
 {% block body%}
-<h1>HOME PAGE</h1><br>
-<br>
-<br>
+<div class="container">
+
+
+<div class="header">
+<h2>FAQ ADMIN MANAGEMENT</h2>
+<form action="{{url_for('embeddings')}}" method="GET">
+<div class="button-group">
+<button type="submit" class="add">MAKE DATABASE FOR SEARCH EMBEDDING</button>
+</div>
+</form>
+
+</div>
+
+<div class="card">
+<form action="{{url_for('add_faq')}}" method="POST">
+    
+<div class="form-group">
+<label>Question</label>
+<input name="question" type="text" placeholder="Enter question...">
+</div>
+
+<div class="form-group">
+<label>Answer</label>
+<textarea name="answer" placeholder="Enter answer..."></textarea>
+</div>
+
+<div class="button-group">
+<button type="submit" class="add">Add</button>
+</div>
+</form>
+<form action="{{url_for('view_faq')}}" method="GET">
+<div class="button-group">
+<button type="submit" class="add">View List FAQ</button>
+</div>
+</form>
+
+<div class="footer">
+FAQ Management System © 2026
+</div>
+
+</div>
+
+</div>
+
 {% endblock %}
