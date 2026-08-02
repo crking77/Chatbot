@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from config import VERIFY_TOKEN
 from services.chatbot_service import handle_message
 
+from models import Faq_User
 webhook_bp = Blueprint("webhook", __name__)
 
 @webhook_bp.route("/webhook", methods=["GET","POST"])
