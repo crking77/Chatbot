@@ -2,7 +2,6 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import pickle
 from models import Faq_User
-from services.gemini_service import embedding_question
 from services.gemini_service import ask_gemini
 from app import db
 

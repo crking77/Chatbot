@@ -1,23 +1,6 @@
 from google import genai
 import os
-import numpy as np
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-# embedding_question --version 2.0 , run in server
-
-def embedding_question(question):
-    response = client.models.embed_content(
-        model="gemini-embedding-2",
-        contents=question,
-        config={
-            "output_dimension": 384
-        }
-    )
-    embedding = np.array(
-        response.embeddings[0].values,
-        dtype=np.float32
-    )
-    return embedding.reshape(1, -1)
-
 
 
 def ask_gemini(question, faqs):
