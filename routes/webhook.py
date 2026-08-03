@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from config import VERIFY_TOKEN
+from config import VERIFY_TOKEN, PAGE_ACCESS_TOKEN
 from services.chatbot_service import handle_message
 
 from models import Faq_User
@@ -11,6 +11,7 @@ def webhook():
         mode = request.args.get("hub.mode")
         token = request.args.get("hub.verify_token")
         challenge = request.args.get("hub.challenge")
+
         if mode == "subscribe" and token == VERIFY_TOKEN:
             return challenge, 200
 
