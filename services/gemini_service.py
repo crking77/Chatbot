@@ -1,7 +1,17 @@
-from google import genai
+from google import  genai
 import os
+import numpy as np
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+
+
+def embedding_service_gemini(text):
+    response = client.models.embed_content(
+        model="gemini-embedding-2",
+        contents=text
+    )
+    embedding = np.array(response.embeddings[0].values, dtype=np.float32).reshape(1, -1)
+    return embedding
 
 def ask_gemini(question, faqs):
     context = "\n\n".join(

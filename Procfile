@@ -1,1 +1,1 @@
-gunicorn run:flask_app
+gunicorn run:app
