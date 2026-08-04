@@ -58,3 +58,10 @@ def register_routes(app,db):
             return jsonify({"error": "Question is required"}), 400
         response_text = query_embedding_result(question)
         return jsonify({"response": response_text}), 200    
+    @app.route("/privacy")
+    def privacy():
+        return """
+        <h1>Chính sách quyền riêng tư</h1>
+        <p>Chatbot này chỉ dùng để trả lời tin nhắn cho Fanpage [tên page].
+        Dữ liệu tin nhắn được xử lý để phản hồi tự động, không chia sẻ cho bên thứ ba.</p>
+        """
