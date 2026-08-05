@@ -77,15 +77,7 @@ def embedding_faqs():
 
 def query_embedding_result(question):
     question_embedding = embedding_service_gemini(question)
-
-    print(type(question_embedding))
-    print(question_embedding.shape)
-    print(question_embedding.dtype)
-
-
-
     D, I = index.search(question_embedding, k=5)
-
     print(type(I))
     print(I)
     score = float(D[0][0])
