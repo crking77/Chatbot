@@ -4,7 +4,7 @@ from services.chatbot_service import handle_message
 
 from models import Faq_User
 webhook_bp = Blueprint("webhook", __name__)
-
+processed_mid = set()
 @webhook_bp.route("/webhook", methods=["GET","POST"])
 def webhook():
     if request.method == "GET":
@@ -30,12 +30,14 @@ def webhook():
             if "message" in event:
 
                 message = event["message"]
-
+                mid = message.get("mid")
                 text = message.get("text", "")
-
-                handle_message(
-                    sender_id=sender_id,
-                    text=text
+            if mid in processed_mid:
+                continue
+            processed_mid.add(mid)
+            handle_message(
+                sender_id=sender_id,
+                text=text
                 )
 
     return "EVENT_RECEIVED", 200
