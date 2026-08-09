@@ -9,7 +9,7 @@ db = SQLAlchemy(model_class=Base)
 def create_app():
 	app = Flask(__name__)
 	app.config.update(SECRET_KEY="KEY_FAQ")
-	app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///bot_messenger.db"
+	app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///bot_messenger_auto.db"
 	app.json.ensure_ascii = False
 	migrate = Migrate(app,db)
 	db.init_app(app)

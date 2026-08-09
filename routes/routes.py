@@ -14,9 +14,11 @@ def register_routes(app,db):
         if not question or not answer:
             return jsonify({"error": "Question and answer are required"}), 400  
         else:
-            new_faq = Faq_User(ask=question, answer=answer)
-            db.session.add(new_faq)
-            db.session.commit()
+            from services.faq_service import add_faq as add_faq_service
+            faq = add_faq_service(question, answer)
+            print(faq.id)
+            print(faq.ask)
+            print(faq.answer)
             return render_template("index.html")
     @app.route("/view_faq", methods =["GET"])
     def view_faq():

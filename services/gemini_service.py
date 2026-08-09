@@ -23,7 +23,7 @@ def ask_gemini(question, faqs):
 Bạn là chatbot tư vấn thủ tục hành chính của Công an xã Hải Châu, tỉnh Nghệ An.
 Chỉ được trả lời dựa trên dữ liệu dưới đây.
 Nếu không có thông tin thì nói:
-"Chào bạn, bạn cần giải thích rõ hơn để Công an xã hỗ trợ bạn nhé!."
+"Chào bạn, bạn cần giải thích rõ hơn để Công an xã hỗ trợ bạn nhé! Hoặc bạn có thể đợi bộ phận chuyên môn trả lời bạn trong thời gian sớm nhất. Xin cảm ơn!"
 
 Dữ liệu:
 
