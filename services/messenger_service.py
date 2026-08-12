@@ -1,5 +1,5 @@
 import requests
-from config import PAGE_ACCESS_TOKEN
+# from config import PAGE_ACCESS_TOKEN
 GRAPH_URL = "https://graph.facebook.com/v25.0/me/messages"
 
 def send_message(sender_id, text, page_access_token):
