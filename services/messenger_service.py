@@ -2,10 +2,10 @@ import requests
 from config import PAGE_ACCESS_TOKEN
 GRAPH_URL = "https://graph.facebook.com/v25.0/me/messages"
 
-def send_message(sender_id, text):
+def send_message(sender_id, text, page_access_token):
 
     params = {
-        "access_token": PAGE_ACCESS_TOKEN
+        "access_token": page_access_token
     }
 
     payload = {

@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from config import VERIFY_TOKEN, PAGE_ACCESS_TOKEN
+from config import VERIFY_TOKEN
 from services.chatbot_service import handle_message
-
+from config import FACEBOOK_PAGE_TOKENS
 from models import Faq_User
 webhook_bp = Blueprint("webhook", __name__)
 processed_mid = set()
@@ -22,7 +22,10 @@ def webhook():
         return "OK", 200
 
     for entry in body.get("entry", []):
-
+        page_id = entry.get("id")
+        page_access_token = FACEBOOK_PAGE_TOKENS.get(page_id)
+        if not page_access_token:
+            continue  # Skip if the page ID is not found in the tokens dictionary
         for event in entry.get("messaging", []):
 
             sender_id = event["sender"]["id"]
@@ -37,7 +40,8 @@ def webhook():
             processed_mid.add(mid)
             handle_message(
                 sender_id=sender_id,
-                text=text
+                text=text,
+                page_access_token=page_access_token
                 )
 
     return "EVENT_RECEIVED", 200

@@ -3,6 +3,6 @@ from services.messenger_service import send_message
 from services.embedding_service import query_embedding_result
 
 
-def handle_message(sender_id, text):
+def handle_message(sender_id, text, page_access_token):
     response_text = query_embedding_result(text)
-    send_message(sender_id, response_text)
+    send_message(sender_id, response_text, page_access_token)
