@@ -1,8 +1,10 @@
 from flask import Blueprint, request
 from config import VERIFY_TOKEN
-from services.chatbot_service import handle_message
+from services.chatbot_service import add_message
 from config import FACEBOOK_PAGE_TOKENS
 from models import Faq_User
+
+
 webhook_bp = Blueprint("webhook", __name__)
 processed_mid = set()
 @webhook_bp.route("/webhook", methods=["GET","POST"])
@@ -38,7 +40,7 @@ def webhook():
             if mid in processed_mid:
                 continue
             processed_mid.add(mid)
-            handle_message(
+            add_message(
                 sender_id=sender_id,
                 text=text,
                 page_access_token=page_access_token

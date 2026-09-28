@@ -11,7 +11,6 @@ if os.path.exists("faq.index") and os.path.exists("faq_ids.pkl"):
     index = faiss.read_index("faq.index")
     with open("faq_ids.pkl", "rb") as f:
         faq_ids = pickle.load(f)
-text_result = "Chào bạn, bạn cần giải thích rõ hơn để Công an xã hỗ trợ bạn nhé!."
 # def embedding_faqs():
 #     model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 #     faqs = Faq_User.query.all()
@@ -87,6 +86,7 @@ def query_embedding_result(question):
             faq = db.session.get(Faq_User, faq_ids[idx])
             if faq:
                 top_faqs.append(faq)
+    print(score)
     if score < 0.8:
         return  ask_gemini(question, top_faqs)
     if top_faqs:
