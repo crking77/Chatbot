@@ -2,6 +2,10 @@ from models import Faq_User, User
 from flask import render_template, request, redirect, url_for, jsonify, session
 import bcrypt
 from flask_login import  login_required, login_user
+
+from services.chatbot_service import add_message
+
+
 def register_routes(app,db):
     @app.route("/login", methods=["GET", "POST"])
     def login():
@@ -97,3 +101,23 @@ def register_routes(app,db):
         <p>Chatbot này chỉ dùng để trả lời tin nhắn cho Fanpage [tên page].
         Dữ liệu tin nhắn được xử lý để phản hồi tự động, không chia sẻ cho bên thứ ba.</p>
         """
+    @app.post("/test/message")
+    def test_message():
+
+        data = request.get_json()
+
+        sender_id = data["sender_id"]
+        text = data["text"]
+
+        print("[TEST]", sender_id, text)
+        
+        PAGE_ACCESS_TOKEN = "123"
+        add_message(
+            sender_id,
+            text,
+            PAGE_ACCESS_TOKEN
+        )
+
+        return {
+            "status": "received"
+        }
