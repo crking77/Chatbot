@@ -5,5 +5,3 @@ __pycache__/
 *.sqlite3
 .env
 add_admin_page.py
-instance/*.db
-*.db
