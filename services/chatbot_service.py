@@ -39,7 +39,7 @@ def add_message(sender_id, text, page_access_token):
 
     # Tạo timer mới 60 giây
     timer = threading.Timer(
-        5,
+        90,
         process_messages,
         args=(sender_id,app)
     )
