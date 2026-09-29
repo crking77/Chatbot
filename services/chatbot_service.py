@@ -22,6 +22,7 @@ def process_messages(sender_id, app):
     print("[PROCESS]",sender_id,combined_text)
     with app.app_context():
         response_text = query_embedding_result(combined_text)
+        print("response_text: ", response_text)
         send_message(sender_id, response_text, page_access_token)
 
 
@@ -38,7 +39,7 @@ def add_message(sender_id, text, page_access_token):
 
     # Tạo timer mới 60 giây
     timer = threading.Timer(
-        60,
+        5,
         process_messages,
         args=(sender_id,app)
     )

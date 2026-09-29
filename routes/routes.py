@@ -101,23 +101,23 @@ def register_routes(app,db):
         <p>Chatbot này chỉ dùng để trả lời tin nhắn cho Fanpage [tên page].
         Dữ liệu tin nhắn được xử lý để phản hồi tự động, không chia sẻ cho bên thứ ba.</p>
         """
-    # @app.post("/test/message")
-    # def test_message():
+    @app.post("/test/message")
+    def test_message():
 
-    #     data = request.get_json()
+        data = request.get_json()
 
-    #     sender_id = data["sender_id"]
-    #     text = data["text"]
+        sender_id = data["sender_id"]
+        text = data["text"]
 
-    #     print("[TEST]", sender_id, text)
+        print("[TEST]", sender_id, text)
         
-    #     PAGE_ACCESS_TOKEN = "123"
-    #     add_message(
-    #         sender_id,
-    #         text,
-    #         PAGE_ACCESS_TOKEN
-    #     )
+        PAGE_ACCESS_TOKEN = "123"
+        add_message(
+            sender_id,
+            text,
+            PAGE_ACCESS_TOKEN
+        )
 
-    #     return {
-    #         "status": "received"
-    #     }
+        return {
+            "status": "received"
+        }

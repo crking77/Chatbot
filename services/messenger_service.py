@@ -16,9 +16,10 @@ def send_message(sender_id, text, page_access_token):
             "text": text
         }
     }
-
-    requests.post(
+    response = requests.post(
         GRAPH_URL,
         params=params,
         json=payload
     )
+    print("[SEND STATUS]", response.status_code)
+    print("[SEND RESPONSE]", response.text)

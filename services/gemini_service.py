@@ -38,5 +38,5 @@ Câu hỏi:
         model="gemini-3.5-flash",
         contents=prompt
     )
-
+    print(response.text)
     return response.text
