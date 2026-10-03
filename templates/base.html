@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-   <title> {% block title%}title {% endblock %}Default </title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Trang quản trị{% endblock %} · FAQ Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-{% block body%} {%endblock %}
+{% if current_user.is_authenticated %}
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="{{ url_for('index') }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg>
+    FAQ Chatbot
+  </a>
+  <a class="link {{ 'on' if request.endpoint == 'index' }}" href="{{ url_for('index') }}">Tổng quan</a>
+  <a class="link {{ 'on' if request.endpoint in ('view_faq','edit') }}" href="{{ url_for('view_faq') }}">Danh sách FAQ</a>
+  <span class="user">{{ current_user.username }}</span>
+</div></header>
+{% endif %}
+{% block body %}{% endblock %}
+<div id="toasts" aria-live="polite"></div>
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

@@ -1,48 +1,37 @@
 {% extends "base.html" %}
-{% block title %} Index {% endblock %}
-{% block body%}
-<div class="container">
- <a href="{{url_for('index')}}" class="action-btn edit-btn">ADD FAQ</a>
- <br>
-<div class="header">
-<h2>FAQ LIST</h2>
-</div>
+{% block title %}Danh sách FAQ{% endblock %}
+{% block body %}
+<main class="container">
+  <div class="page-head">
+    <div><h1>Danh sách FAQ</h1><p>Tìm, chỉnh sửa hoặc xóa các câu hỏi trong kho dữ liệu.</p></div>
+    <a class="btn" href="{{ url_for('index') }}">+ Thêm FAQ</a>
+  </div>
 
-<table>
+  <div class="toolbar">
+    <input id="filter" type="search" placeholder="Lọc theo câu hỏi hoặc câu trả lời..." autocomplete="off">
+    <span class="count">Đang hiển thị <b id="shown">{{ faqs|length }}</b> / {{ faqs|length }} FAQ</span>
+  </div>
 
-<thead>
-
-<tr>
-<th width="80">ID</th>
-<th width="35%">Question</th>
-<th>Answer</th>
-<th width="170">Action</th>
-</tr>
-
-</thead>
-
-<tbody>
-    {% for faq in faqs %}
-    <tr>
-        <td>{{ faq.id }}</td>
-
-        <td>{{ faq.ask }}</td>
-
-        <td>{{ faq.answer }}</td>
-    <td>
-    <a href="{{url_for('edit', id = faq.id)}}" class="action-btn edit-btn">Edit</a>
-    <a href="{{url_for('delete', id = faq.id)}}"  class="action-btn delete-btn">Delete</a>
-    </td>
-    </tr>
-{% endfor %}
-
-</tbody>
-
-</table>
-
-
-</div>
-
-</div>
-
+  <div class="card tbl-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Câu hỏi</th><th>Câu trả lời</th><th>Thao tác</th></tr></thead>
+      <tbody id="rows">
+      {% for faq in faqs %}
+        <tr>
+          <td class="id">{{ faq.id }}</td>
+          <td class="q">{{ faq.ask }}</td>
+          <td><div class="clamp">{{ faq.answer }}</div></td>
+          <td class="act">
+            <a class="btn ghost sm" href="{{ url_for('edit', id=faq.id) }}">Sửa</a>
+            <a class="btn danger sm" href="{{ url_for('delete', id=faq.id) }}" data-confirm="Xóa FAQ này? Hành động không thể hoàn tác.">Xóa</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="none" id="none" {% if faqs %}hidden{% endif %}>
+      {% if faqs %}Không có FAQ nào khớp bộ lọc.{% else %}Chưa có FAQ nào. <a href="{{ url_for('index') }}">Thêm FAQ đầu tiên</a>.{% endif %}
+    </div>
+  </div>
+</main>
 {% endblock %}

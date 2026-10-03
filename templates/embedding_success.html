@@ -1,10 +1,13 @@
 {% extends "base.html" %}
-{% block title %} Index {% endblock %}
-{% block body%}
-<a href="{{url_for('index')}}" class="action-btn edit-btn">BACK HOME</a>
-<h1>
-    Dữ liệu đã được nhúng thành công vào cơ sở dữ liệu.
-</h1>
-
-
+{% block title %}Đã tạo chỉ mục{% endblock %}
+{% block body %}
+<main class="container"><section class="card done">
+  <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h2>Tạo chỉ mục thành công</h2>
+  <p class="sub">Dữ liệu FAQ đã được nhúng vào cơ sở dữ liệu tìm kiếm. Bạn có thể quay lại để thử chatbot.</p>
+  <div class="btns">
+    <a class="btn" href="{{ url_for('index') }}">Về trang quản trị</a>
+    <a class="btn ghost" href="{{ url_for('view_faq') }}">Xem danh sách FAQ</a>
+  </div>
+</section></main>
 {% endblock %}

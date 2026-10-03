@@ -1,57 +1,40 @@
 {% extends "base.html" %}
-{% block title %} Index {% endblock %}
-{% block body%}
-<div class="container">
+{% block title %}Tổng quan{% endblock %}
+{% block body %}
+<main class="container">
+  <div class="page-head">
+    <div><h1>Quản lý kho FAQ</h1><p>Thêm câu hỏi, tạo chỉ mục tìm kiếm và thử chatbot ngay tại đây.</p></div>
+    <a class="btn ghost" href="{{ url_for('view_faq') }}">Xem danh sách FAQ</a>
+  </div>
 
+  <div class="grid">
+    <section class="card">
+      <h2>Thêm FAQ mới</h2>
+      <p class="sub">Mỗi FAQ gồm một câu hỏi mẫu và câu trả lời tương ứng.</p>
+      <form id="addForm" action="{{ url_for('add_faq') }}" method="POST">
+        <div class="field"><label for="q">Câu hỏi</label>
+          <input id="q" name="question" type="text" placeholder="Ví dụ: Học phí kỳ này bao nhiêu?" required></div>
+        <div class="field"><label for="a">Câu trả lời</label>
+          <textarea id="a" name="answer" placeholder="Nhập nội dung chatbot sẽ trả lời..." required></textarea></div>
+        <button class="btn" type="submit">Thêm FAQ</button>
+      </form>
 
-<div class="header">
-<h2>FAQ ADMIN MANAGEMENT</h2>
-<form action="{{url_for('embeddings')}}" method="GET">
-<div class="button-group">
-<button type="submit" class="add">MAKE DATABASE FOR SEARCH EMBEDDING</button>
-</div>
-</form>
+      <div class="hint"><span>ℹ️</span><span>Sau khi thêm hoặc sửa FAQ, hãy bấm <b>Tạo chỉ mục tìm kiếm</b> để chatbot nhận dữ liệu mới.</span></div>
+      <form action="{{ url_for('embeddings') }}" method="GET" data-loading="Đang tạo chỉ mục, vui lòng chờ..." style="margin-top:14px">
+        <button class="btn ghost block" type="submit">Tạo chỉ mục tìm kiếm</button>
+      </form>
+    </section>
 
-</div>
-
-<div class="card">
-<form action="{{url_for('add_faq')}}" method="POST">
-    
-<div class="form-group">
-<label>Question</label>
-<input name="question" type="text" placeholder="Enter question...">
-</div>
-
-<div class="form-group">
-<label>Answer</label>
-<textarea name="answer" placeholder="Enter answer..."></textarea>
-</div>
-
-<div class="button-group">
-<button type="submit" class="add">Add</button>
-</div>
-</form>
-<form action="{{url_for('view_faq')}}" method="GET">
-<div class="button-group">
-<button type="submit" class="add">View List FAQ</button>
-</div>
-</form>
-
-<form action="{{url_for('test_embeddings_result')}}" method="GET">
-<div class="form-group">
-<label>Question</label>
-<input name="question" type="text" placeholder="Enter question...">
-</div>
-<div class="button-group">
-<button type="submit" class="add">SEARCH</button>
-</div>
-</form>
-<div class="footer">
-FAQ Management System © 2026
-</div>
-
-</div>
-
-</div>
-
+    <section class="card">
+      <h2>Thử nghiệm chatbot</h2>
+      <p class="sub">Đặt câu hỏi để xem chatbot trả lời thế nào.</p>
+      <div class="chat" id="chat"><div class="empty">Chưa có hội thoại.<br>Hãy nhập một câu hỏi bên dưới.</div></div>
+      <form id="askForm" class="row" action="{{ url_for('test_embeddings_result') }}" method="GET">
+        <input name="question" type="text" placeholder="Nhập câu hỏi..." autocomplete="off" required>
+        <button class="btn" type="submit">Gửi</button>
+      </form>
+    </section>
+  </div>
+  <p class="foot">FAQ Management System © 2026</p>
+</main>
 {% endblock %}
